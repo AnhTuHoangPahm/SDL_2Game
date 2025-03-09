@@ -1,0 +1,57 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "Build Debug",
+            "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-c",
+                "src/Game.cpp",
+                "src/TextureManager.cpp",
+                "${file}", // main.cpp
+                "-I",
+                "include",
+                "-o",
+                "objects/${fileBasenameNoExtension}.o",
+            ],
+            "problemMatcher": ["$gcc"],
+
+            "detail": "From source to object"
+        },
+        {
+            "type": "shell",
+            "label": "Link",
+            "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
+            "args": [
+                //
+                "objects/${fileBasenameNoExtension}.o", // main.o
+                "-L",
+                "lib",
+                "-lmingw32",
+                "-lSDL2main",
+                "-lSDL2",
+                "-lSDL2_image",
+                "-o",
+                "release/${fileBasenameNoExtension}.exe",
+
+            ],
+            "problemMatcher": ["$gcc"],
+
+            "detail": "Link objects -> exe"
+        },
+        {
+            "label": "Build Executable",
+            "dependsOn": [
+                "Build Debug",
+                "Link"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        }
+    ],
+    "version": "2.0.0"
+}
