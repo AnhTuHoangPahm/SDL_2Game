@@ -5,10 +5,9 @@
 const int width = 576; 
 const int height = 784;
 
-Player::Player(const char* PlayerTextureSheetDir, SDL_Renderer* ren) : GameObject::GameObject(PlayerTextureSheetDir, ren)
+Player::Player(const char* PlayerTextureSheetDir) : GameObject::GameObject(PlayerTextureSheetDir)
 {
-    renderer = ren;
-    playerTex = TextureManager::LoadTexture("assets/Skadi_sprite.png", ren);
+    playerTex = TextureManager::LoadTexture("assets/Skadi_sprite.png");
 }
 
 Player::~Player()
@@ -16,8 +15,9 @@ Player::~Player()
 
 void Player::Render() 
 {
-    SDL_RenderCopy(renderer, playerTex, &playerSrc, &playerDest);    
+    SDL_RenderCopy(Game::renderer, playerTex, &playerSrc, &playerDest);    
 }
+
 void Player::Update()
 {
     // browse the frames idle: 4 atk: 12 ...
@@ -39,16 +39,11 @@ void Player::Update()
     std::cout << "Current Frame: " << currentFrame << " Source Rect: "
         << playerSrc.x << ", " << playerSrc.y << std::endl;
 }
+
 void Player::InputHandle(SDL_Event event)
 {
-    //SDL_Event event;
-    //SDL_PollEvent(&event);
-        // case SDL_QUIT:
-        //     isRunning = false;
-        //     break;
-
-        // Simple input handling
-        // Arrow Key 
+    // Simple input handling
+    // Arrow Key 
     if(SDL_KEYDOWN == event.type) 
     {
         switch (event.key.keysym.sym)

@@ -2,10 +2,9 @@
 #include "TextureManager.hpp" // load objTex
 
 
-GameObject::GameObject(const char* TextureSheetDir, SDL_Renderer* ren)
+GameObject::GameObject(const char* TextureSheetDir)
 {
-    renderer = ren;
-    Tex = TextureManager::LoadTexture(TextureSheetDir, ren);
+    Tex = TextureManager::LoadTexture(TextureSheetDir);
 }
 
 GameObject::~GameObject()
@@ -22,7 +21,7 @@ void GameObject::Update()
 
 void GameObject::Render()
 {
-    SDL_RenderCopy(renderer, Tex, &srcRect, &destRect);
+    SDL_RenderCopy(Game::renderer, Tex, &srcRect, &destRect);
 }
 
 

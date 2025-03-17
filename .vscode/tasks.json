@@ -17,6 +17,7 @@
                 "${workspaceFolder}\\src\\FPSLimiter.cpp",
                 "${workspaceFolder}\\src\\GameObject.cpp",
                 "${workspaceFolder}\\src\\Player.cpp",
+                "${workspaceFolder}\\src\\Map.cpp",
                 "${file}",
                 "-o",
                 "${workspaceFolder}\\build\\${fileBasenameNoExtension}.exe",

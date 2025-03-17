@@ -4,7 +4,7 @@
 class GameObject 
 {
 public:
-    GameObject(const char* TextureSheetDir, SDL_Renderer* ren);
+    GameObject(const char* TextureSheetDir);
     virtual ~GameObject();
     virtual void Update(); // upate position, HP, damage, isAlive, etc.
     virtual void Render();
@@ -18,7 +18,6 @@ protected:
 
     SDL_Texture* Tex;
     SDL_Rect srcRect, destRect;
-    SDL_Renderer* renderer;
 
     // sprite-related
     const int FrameWidth = 64; 
