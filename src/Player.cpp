@@ -1,9 +1,10 @@
 #include "TextureManager.hpp"
 #include "GameObject.hpp"
 #include "Player.hpp"
-// window config
-const int width = 576; 
-const int height = 784;
+#include "Map.hpp"
+
+    int Player::startingX = Game::width/2 -32;
+    int Player::startingY = Game::height - 64;
 
 Player::Player(const char* PlayerTextureSheetDir) : GameObject::GameObject(PlayerTextureSheetDir)
 {
@@ -36,8 +37,8 @@ void Player::Update()
     playerSrc = {currentFrame * FrameWidth, 0, FrameWidth, FrameHeight};
     playerDest = {startingX, startingY, FrameWidth, FrameHeight}; // starting position := bottom center of window (x,y,w,h). For ref:to line 13
 
-    std::cout << "Current Frame: " << currentFrame << " Source Rect: "
-        << playerSrc.x << ", " << playerSrc.y << std::endl;
+    // std::cout << "Current Frame: " << currentFrame << " Source Rect: "
+    //     << playerSrc.x << ", " << playerSrc.y << std::endl;
 }
 
 void Player::InputHandle(SDL_Event event)
@@ -52,7 +53,7 @@ void Player::InputHandle(SDL_Event event)
                 startingY -= FrameHeight;
                 break;
             case SDLK_DOWN:
-                if(startingY == height - FrameHeight) {break;}
+                if(startingY == Game::height - FrameHeight) {break;}
                 startingY += FrameHeight;
                 break;
             case SDLK_LEFT:
@@ -60,7 +61,7 @@ void Player::InputHandle(SDL_Event event)
                 startingX -= FrameWidth;
                 break;
             case SDLK_RIGHT:
-                if(startingX == width - FrameWidth) {break;}
+                if(startingX == Game::width - FrameWidth) {break;}
                 startingX += FrameWidth;
                 break;
         }
@@ -74,7 +75,7 @@ void Player::InputHandle(SDL_Event event)
                 startingY -= 0;
                 break;
             case SDLK_DOWN:
-                startingY += 0;
+                playerDest.y += 0;
                 break;
             case SDLK_LEFT:
                 startingX -= 0;
