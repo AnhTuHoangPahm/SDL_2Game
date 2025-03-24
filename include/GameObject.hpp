@@ -1,3 +1,6 @@
+#ifndef GAMEOBJECT_HPP
+#define GAMEOBJECT_HPP
+
 #pragma once
 #include "Game.hpp"
 
@@ -34,3 +37,5 @@ protected:
     bool isAttack = false;
     bool isAlive = true;
 };
+
+#endif

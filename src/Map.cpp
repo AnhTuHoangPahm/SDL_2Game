@@ -2,9 +2,11 @@
 #include "TextureManager.hpp"
 #include "Map.hpp"
 #include "Player.hpp"
+#include "Random.hpp"
 
 // Map::Map(const char* TileSheetDir)
 // {}
+RandomGenerator rng;
 
 Map::~Map()
 {}
@@ -27,6 +29,12 @@ void Map::LoadEntireMap()
             tile.y = row * tileSize;
             tile.id = (row % 2);
             tile.tileTex = tmpTileTex;
+
+            if (rng.getInt(0, 100) % 100 < 10) 
+            {
+                tile.hasEnemy = true;
+            }
+                
             Tiles[row][col] = tile;
         }
     }
@@ -41,6 +49,11 @@ void Map::RenderEntireMap()
             tileDest.y = tile.y;
             tileSrc.x = tile.id * tileSize;
             SDL_RenderCopy(Game::renderer, tmpTileTex, &tileSrc, &tileDest);
+
+            if (tile.hasEnemy)
+            {
+                SDL_RenderCopy(Game::renderer, enemytile, &tileSrc, &tileDest);
+            }
         }
     }
 }
@@ -76,7 +89,10 @@ void Map::ScrollMap()
     {
         Player::startingY += tileSize;
 
-        std::vector<Tile> tmpRow = Tiles.back();
+        std::vector<Tile> newRow; 
+        int newId = Tiles.back()[0].id;
+        int newY = Tiles.back()[0].y - (ROW-1) * tileSize; // = 0;
+
         Tiles.pop_back();
 
         // update tiles' position after deletion
@@ -84,16 +100,25 @@ void Map::ScrollMap()
         {
             for(auto& tile : row) 
             {
-                tile.y += tileSize;
+                tile.y += tileSize; // shift down
             }
         }
 
-        for(auto& tile : tmpRow) // update y_pos for first row that once be last row
+        for (size_t col=0; col<COL; col++) 
         {
-            tile.y = Tiles.front()[0].y - tileSize;
-        } 
+            Tile tile;
+            tile.x = col * tileSize; 
+            tile.y = newY;
+            tile.id = newId;
+            tile.tileTex = tmpTileTex;
+            if (rng.getInt(0, 100) % 100 < 10) 
+            {
+                tile.hasEnemy = true;
+            }
+            newRow.push_back(tile);
+        }
 
-        Tiles.push_front(tmpRow);
+        Tiles.push_front(newRow);
         
         std::cout << "Map scrolled" << std::endl;
     }

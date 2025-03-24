@@ -1,3 +1,6 @@
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
+
 #pragma once
 #include "Game.hpp"
 #include "GameObject.hpp"
@@ -27,3 +30,5 @@ private:
     int EXP;
     int Level;
 };
+
+#endif

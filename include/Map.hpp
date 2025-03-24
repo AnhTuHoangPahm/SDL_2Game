@@ -1,3 +1,6 @@
+#ifndef MAP_HPP
+#define MAP_HPP
+
 #pragma once
 #include <vector>
 #include <deque> // DoubleEndQueue
@@ -5,9 +8,11 @@
 
 struct Tile
 {
-    int id;
-    int x;
-    int y;
+    
+    int id = 0;
+    int x = 0;
+    int y = 0;
+    bool hasEnemy = false;
     SDL_Texture* tileTex;
 };
 
@@ -36,6 +41,7 @@ private:
     const int tileSize = 64; // 64 x 64
     // Tile tex to be cloned 
     SDL_Texture* tmpTileTex;
+    SDL_Texture* enemytile = TextureManager::LoadTexture("assets/Tile_01.png");
 
     // that 2D vector 
     std::deque<std::vector<Tile>> Tiles; 
@@ -43,3 +49,5 @@ private:
     SDL_Rect tileSrc, tileDest;
 
 };
+
+#endif
