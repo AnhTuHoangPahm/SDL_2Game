@@ -30,7 +30,7 @@ void Map::LoadEntireMap()
             tile.id = (row % 2);
             tile.tileTex = tmpTileTex;
 
-            if (rng.getInt(0, 100) % 100 < 10) 
+            if (rng.getInt(0, 100) % 100 < 7) 
             {
                 tile.hasEnemy = true;
             }
@@ -85,7 +85,7 @@ void Map::RenderEntireMap()
 
 void Map::ScrollMap()
 {
-    if (Player::startingY <= (Game::height / 2) )
+    if (Player::startingY <= (Game::height / 2) - tileSize )
     {
         Player::startingY += tileSize;
 

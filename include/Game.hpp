@@ -2,9 +2,14 @@
 #define GAME_HPP 
 
 #include <iostream>
+#include <string>
+#include <ctime>
+#include <cmath>
+#include <cstdlib>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_main.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 class Game {
 public:

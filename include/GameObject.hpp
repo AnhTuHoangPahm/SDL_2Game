@@ -7,6 +7,7 @@
 class GameObject 
 {
 public:
+    GameObject() {}
     GameObject(const char* TextureSheetDir);
     virtual ~GameObject();
     virtual void Update(); // upate position, HP, damage, isAlive, etc.
@@ -26,7 +27,7 @@ protected:
     const int FrameWidth = 64; 
     const int FrameHeight = 64;
         // animation thingy
-        int FrameNum = 4; // idling stance for all objects // max = isAttack = depends
+        int FrameNum = 4; // idling stance = 0 frames (default) // max = isAttack = depends
         Uint32 FrameDelay = 200; // delay per frame (default)
         int currentFrame = 0; 
         Uint32 lastFrameTime = 0; 

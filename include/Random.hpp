@@ -13,7 +13,6 @@ public:
 private:
     std::random_device rd;   // Random entropy source
     std::mt19937 gen;        // Bộ sinh số giả ngẫu nhiên Mersenne Twister
-
 };
 
 #endif

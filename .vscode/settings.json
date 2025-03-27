@@ -93,6 +93,9 @@
         "variant": "cpp",
         "netfwd": "cpp",
         "rope": "cpp",
-        "slist": "cpp"
+        "slist": "cpp",
+        "executor": "cpp",
+        "io_context": "cpp",
+        "timer": "cpp"
     }
 }

@@ -20,6 +20,7 @@
                 "${workspaceFolder}\\src\\Enemy.cpp",
                 "${workspaceFolder}\\src\\Map.cpp",
                 "${workspaceFolder}\\src\\Random.cpp",
+                "${workspaceFolder}\\src\\Timer.cpp",
                 "${file}",
                 "-o",
                 "${workspaceFolder}\\build\\${fileBasenameNoExtension}.exe",

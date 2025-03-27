@@ -10,8 +10,8 @@ class Player : public GameObject
 public:
     Player(const char* PlayerTextureSheetDir); //, SDL_Renderer* ren);
     ~Player() override;
-    int getX() {return startingX;} // startingX, Y are actually modified (confusion++)
-    int getY() {return startingY;}
+    static int getX() {return startingX;} // startingX, Y are actually modified (confusion++)
+    static int getY() {return startingY;}
     void Update() override;
     void Render() override;
     void InputHandle(SDL_Event event);
@@ -23,9 +23,6 @@ public:
 private:
 // override name of these from parent class
     SDL_Texture* playerTex;
-//
-    
-//
 
     int EXP;
     int Level;

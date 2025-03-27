@@ -3,8 +3,8 @@
 #include "Player.hpp"
 #include "Map.hpp"
 
-    int Player::startingX = Game::width/2 -32;
-    int Player::startingY = Game::height - 64;
+int Player::startingX = Game::width/2 -32;
+int Player::startingY = Game::height - 64;
 
 Player::Player(const char* PlayerTextureSheetDir) : GameObject::GameObject(PlayerTextureSheetDir)
 {
@@ -91,7 +91,7 @@ void Player::InputHandle(SDL_Event event)
         if(event.button.button = SDL_BUTTON_LEFT)
         {
             isAttack = true;
-            FrameDelay = 75;
+            FrameDelay = 45;
             FrameNum = 17; 
         }
     }

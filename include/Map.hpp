@@ -32,16 +32,16 @@ public:
     void RenderEntireMap();
     // void UpdateCamera(SDL_Rect &camera, int actualY, int windowHeight, float scrollSpd);
     void ScrollMap();
-
-private:
     //
     static const int ROW = 12; // 12 x 9 dynamic array
     static const int COL = 9;  // static to use in initialization list
     //Tile tile;
-    const int tileSize = 64; // 64 x 64
+    static const int tileSize = 64; // 64 x 64
+
+private:
     // Tile tex to be cloned 
     SDL_Texture* tmpTileTex;
-    SDL_Texture* enemytile = TextureManager::LoadTexture("assets/Tile_01.png");
+        SDL_Texture* enemytile = TextureManager::LoadTexture("assets/Tile_01.png"); // add tex from enemy class instead.
 
     // that 2D vector 
     std::deque<std::vector<Tile>> Tiles; 
