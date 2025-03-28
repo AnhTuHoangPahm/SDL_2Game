@@ -1,15 +1,27 @@
 #ifndef GAME_HPP
 #define GAME_HPP 
 
-#include <iostream>
-#include <string>
-#include <ctime>
-#include <cmath>
-#include <cstdlib>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_main.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <deque> // DoubleEndQueue
+#include <ctime>
+#include <cmath>
+#include <cstdlib>
+
+#include "FPSLimiter.hpp"
+#include "GameObject.hpp"
+#include "TextureManager.hpp"
+#include "Random.hpp"
+#include "Map.hpp"
+#include "Enemy.hpp"
+#include "Spawner.hpp"
+#include "Player.hpp"
 
 class Game {
 public:
@@ -27,6 +39,7 @@ public:
     static const int height = 768;
 
     static SDL_Renderer* renderer;
+    static RandomGenerator rgn;
 
 private:
     bool isRunning;

@@ -2,9 +2,7 @@
 #define MAP_HPP
 
 #pragma once
-#include <vector>
-#include <deque> // DoubleEndQueue
-#include "TextureManager.hpp"
+#include "Game.hpp"
 
 struct Tile
 {
@@ -41,7 +39,7 @@ public:
 private:
     // Tile tex to be cloned 
     SDL_Texture* tmpTileTex;
-        SDL_Texture* enemytile = TextureManager::LoadTexture("assets/Tile_01.png"); // add tex from enemy class instead.
+    
 
     // that 2D vector 
     std::deque<std::vector<Tile>> Tiles; 

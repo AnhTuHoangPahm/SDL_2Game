@@ -1,12 +1,7 @@
-#include "Game.hpp"
-#include "TextureManager.hpp"
 #include "Map.hpp"
-#include "Player.hpp"
-#include "Random.hpp"
 
 // Map::Map(const char* TileSheetDir)
 // {}
-RandomGenerator rng;
 
 Map::~Map()
 {}
@@ -30,7 +25,7 @@ void Map::LoadEntireMap()
             tile.id = (row % 2);
             tile.tileTex = tmpTileTex;
 
-            if (rng.getInt(0, 100) % 100 < 7) 
+            if (Game::rgn.getInt(0, 100) % 100 < 7) 
             {
                 tile.hasEnemy = true;
             }
@@ -52,7 +47,7 @@ void Map::RenderEntireMap()
 
             if (tile.hasEnemy)
             {
-                SDL_RenderCopy(Game::renderer, enemytile, &tileSrc, &tileDest);
+                SDL_RenderCopy(Game::renderer, Enemy::enemyTex, &tileSrc, &tileDest);
             }
         }
     }
@@ -111,7 +106,7 @@ void Map::ScrollMap()
             tile.y = newY;
             tile.id = newId;
             tile.tileTex = tmpTileTex;
-            if (rng.getInt(0, 100) % 100 < 10) 
+            if (Game::rgn.getInt(0, 100) % 100 < 10) 
             {
                 tile.hasEnemy = true;
             }

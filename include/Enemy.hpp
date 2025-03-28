@@ -2,24 +2,19 @@
 #define ENEMY_HPP
 
 #include "Game.hpp"
-#include "GameObject.hpp"
-#include "TextureManager.hpp"
-#include "Random.hpp"
-#include "Map.hpp"
-#include "Player.hpp"
 
 class Enemy : public GameObject
 {
 public:
-    Enemy(const char* EnemyTextureSheetDir, int startX, int startY)
-        : x(startX * Map::tileSize ), y(startY * Map::tileSize), lastMoveTime(SDL_GetTicks()) 
+    Enemy(int startX, int startY)
+        : x(startX * Map::tileSize ), y(startY * Map::tileSize), prevX(x), prevY(y), lastMoveTime(SDL_GetTicks()) 
     {
-        enemyTex = TextureManager::LoadTexture("assets/.png");
+        enemyTex = TextureManager::LoadTexture("assets/Tile_01.png");
     }
 
     ~Enemy() override;
-    void Update() override;
-    void Update(int playerX, int PlayerY);
+    void Update() override; 
+    // void Update(int playerX, int PlayerY); don't nêed that, see Spawner::Update()
     void Render() override;
     void RandomMovement();
     bool DetectPlayer(int playerX, int playerY);
@@ -27,10 +22,10 @@ public:
     void Attack();
 
     SDL_Rect enemySrc, enemyDest;
+    static SDL_Texture* enemyTex;
 
-private:
     int x, y;
-    SDL_Texture* enemyTex;
+    int prevX, prevY;
     Uint32 lastMoveTime;
 
 };

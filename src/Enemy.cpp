@@ -6,47 +6,34 @@ Enemy::~Enemy()
 void Enemy::RandomMovement()
 {
     static const int dx[4] = {0, 0, -1, 1};
-        static const int dy[4] = {-1, 1, 0, 0};
-        int dir = rand() % 4;
-        int newX = x / Map::tileSize + dx[dir];
-        int newY = y / Map::tileSize + dy[dir];
-        
-        if (newX >= 0 && newX < Game::width && newY >= 0 && newY < Game::height) {
-            x = newX * Map::tileSize;
-            y = newY * Map::tileSize;
-        }
-}
+    static const int dy[4] = {-1, 1, 0, 0};
+    
+    std::vector<int> validMoves;
+    // push valid directions into validMoves
+    for (int i=0; i<4; i++)
+    {
+        int newX = x / Map::tileSize + dx[i];
+        int newY = y / Map::tileSize + dy[i];
 
-void Enemy::Update(int playerX, int playerY)
-{
-    // // browse the frames idle: 4 atk: 12 ...
-    // if(SDL_GetTicks() - lastFrameTime > FrameDelay) {
-    //     currentFrame = (currentFrame + 1); //% FrameNum;
-    //     if(currentFrame > FrameNum) 
-    //     {
-    //         isAttack = false; //
-    //         FrameDelay = 200; // set back to
-    //         FrameNum = 4;     //   default 
-    //         currentFrame = 0;
-    //     }
-    //     lastFrameTime = SDL_GetTicks();
-    // }
-    // //
-    // playerSrc = {currentFrame * FrameWidth, 0, FrameWidth, FrameHeight};
-    // playerDest = {startingX, startingY, FrameWidth, FrameHeight}; // starting position := bottom center of window (x,y,w,h). For ref:to line 13
-
-    // // std::cout << "Current Frame: " << currentFrame << " Source Rect: "
-    // //     << playerSrc.x << ", " << playerSrc.y << std::endl;
-
-    Uint32 currentTime = SDL_GetTicks();
-        if (currentTime - lastMoveTime >= 3000) {
-            if (DetectPlayer(playerX, playerY)) {
-                ChasePlayer(playerX, playerY);
-            } else {
-                RandomMovement();
+        if (newX >= 0 && newX < Map::COL && newY>0 && newY < Map::ROW) // inside the map
+        {
+            if (!(newX == prevX / Map::tileSize && newY == prevY / Map::tileSize)) // not going back to prev tile
+            {
+                validMoves.push_back(i);
             }
-            lastMoveTime = currentTime;
         }
+    }
+
+    // move randomly based on valid directions
+    if (!validMoves.empty())
+    {
+        int dir = validMoves[Game::rgn.getInt(0,30) % 4];
+        prevX = x;
+        prevY = y;
+        x += dx[dir] * Map::tileSize;
+        y += dx[dir] * Map::tileSize;
+    }
+    
 }
 
 void Enemy::Render()
@@ -60,7 +47,8 @@ bool Enemy::DetectPlayer(int playerX, int playerY)
     int gridY = y / Map::tileSize;
     int plGridX = playerX / Map::tileSize;
     int plGridY = playerY / Map::tileSize;
-    return std::abs(gridX - plGridX) <=1 && std::abs(gridY - plGridY) <=1;
+    // detect range: 1 tile
+    return std::abs(gridX - plGridX) <=1 && std::abs(gridY - plGridY) <=1; 
 }
 
 void Enemy::ChasePlayer(int playerX, int playerY) 
@@ -70,12 +58,14 @@ void Enemy::ChasePlayer(int playerX, int playerY)
     int plGridX = playerX / Map::tileSize;
     int plGridY = playerY / Map::tileSize;
 
-    if (std::abs(plGridX - gridX) > std::abs(plGridY - gridY)) 
+    prevX = x;
+    prevY = y;
+
+    if (std::abs(plGridX - gridX) > std::abs(plGridY - gridY)) // dx > dy, as when player moves right or left 
     {
         x += (plGridX > gridX) ? Map::tileSize : - Map::tileSize;
-    } else {
+    } else { // player move up or down
         y += (plGridY > gridY) ? Map::tileSize : - Map::tileSize;
     }
 }
-
 

@@ -16,10 +16,7 @@ public:
     // todo: add Collision check & handle
 
 protected:
-    // current cordination, can be overwritten
-    int x_pos;
-    int y_pos;
-
+    
     SDL_Texture* Tex;
     SDL_Rect srcRect, destRect;
 

@@ -4,15 +4,15 @@
 
 class RandomGenerator {
 public:
-    
-    RandomGenerator() : gen(rd()) {}
+                         // ?  v
+    RandomGenerator() : gen(rd( )) {} // result_type operator ()
     ~RandomGenerator();
     // radomize integer in [a, b]
     int getInt(int a, int b);
     
 private:
     std::random_device rd;   // Random entropy source
-    std::mt19937 gen;        // Bộ sinh số giả ngẫu nhiên Mersenne Twister
+    std::mt19937 gen;        // Random Number generator Mersenne Twister
 };
 
 #endif

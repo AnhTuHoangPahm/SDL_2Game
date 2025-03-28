@@ -3,7 +3,6 @@
 
 #pragma once
 #include "Game.hpp"
-#include "GameObject.hpp"
 
 class Player : public GameObject 
 {

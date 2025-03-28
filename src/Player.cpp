@@ -1,7 +1,4 @@
-#include "TextureManager.hpp"
-#include "GameObject.hpp"
 #include "Player.hpp"
-#include "Map.hpp"
 
 int Player::startingX = Game::width/2 -32;
 int Player::startingY = Game::height - 64;

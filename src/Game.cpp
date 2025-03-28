@@ -1,8 +1,4 @@
 #include "Game.hpp"
-#include "TextureManager.hpp"
-#include "GameObject.hpp"
-#include "Player.hpp"
-#include "Map.hpp"
 //sdl-event
 SDL_Event event;
 // texture here
@@ -15,6 +11,7 @@ Game::Game()
 Game::~Game()
 {}
 
+EnemySpawner spawner;
 Player* player;
 Map* mapper;
 
@@ -48,8 +45,6 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width, int height, 
     player = new Player("assets/Skadi_sprite.png");
     mapper = new Map("assets/grasses.png");
 
-
-
     //bgTex = TextureManager::LoadTexture("assets/VastSands.png", renderer);
 
 }
@@ -58,6 +53,8 @@ void Game::buildMap()
 {
     mapper->Update();
     mapper->LoadEntireMap();
+    spawner.AddSpawner(0, 0);
+    spawner.AddSpawner(11, 8); 
     SDL_RenderClear(renderer);
     mapper->RenderEntireMap();
     SDL_RenderPresent(renderer);

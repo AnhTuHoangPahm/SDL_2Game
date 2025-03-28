@@ -1,6 +1,4 @@
 #include "Game.hpp"
-#include "Map.hpp"
-#include "FPSLimiter.hpp"
 
 //input w, h * 5/4 == actual w, h
 // //window config

@@ -1,7 +1,7 @@
 #ifndef TEXTTIMER_HPP
 #define TEXTTIMER_HPP
+
 #include "Game.hpp"
-#include "TextureManager.hpp"
 #include "Timer.hpp"
 
 class TextTimer
