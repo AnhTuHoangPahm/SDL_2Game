@@ -2,6 +2,10 @@
 #define SPAWNER_HPP 
 
 #include "Game.hpp"
+#include "GameObject.hpp"
+#include "Map.hpp"
+#include "Enemy.hpp"
+#include "Collision.hpp"
 
 class EnemySpawner
 {
@@ -10,7 +14,8 @@ public:
     {}
     void AddSpawner(int gridX, int gridY);
     void Spawn();
-    void Update(int playerX, int playerY); 
+    void Render();
+    void Update(int& playerX, int& playerY); 
     void ScrollDown();
     
     std::vector<std::pair<int, int>> spawnerPos; // pair as pos = (x, y)

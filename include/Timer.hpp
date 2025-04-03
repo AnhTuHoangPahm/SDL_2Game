@@ -23,10 +23,10 @@ public:
     bool HasIntervalPassed();
     
 private:
-    Uint32 startTime;       // Thời điểm bắt đầu đếm
-    Uint32 countdownTime;   // Thời gian đếm ngược (ms)
-    Uint32 lastInterval;    // Thời điểm kiểm tra interval cuối cùng
-    Uint32 interval;        // Khoảng thời gian cần trôi qua (ms)
+    Uint32 startTime;       // start to countdown from this time (ms)
+    Uint32 countdownTime;   // countdown time (ms)
+    Uint32 lastInterval;    // last checked interval time (ms)
+    Uint32 interval;        // interval duration (ms)
 };
 
 #endif // TIMER_H

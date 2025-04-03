@@ -1,7 +1,6 @@
 #ifndef GAMEOBJECT_HPP
 #define GAMEOBJECT_HPP
 
-#pragma once
 #include "Game.hpp"
 
 class GameObject 
@@ -14,15 +13,13 @@ public:
     virtual void Render();
 
     // todo: add Collision check & handle
-
-protected:
-    
+ 
     SDL_Texture* Tex;
     SDL_Rect srcRect, destRect;
 
     // sprite-related
-    const int FrameWidth = 64; 
-    const int FrameHeight = 64;
+    int FrameWidth = 64; 
+    int FrameHeight = 64;
         // animation thingy
         int FrameNum = 4; // idling stance = 0 frames (default) // max = isAttack = depends
         Uint32 FrameDelay = 200; // delay per frame (default)

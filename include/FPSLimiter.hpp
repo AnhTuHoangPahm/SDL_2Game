@@ -1,4 +1,3 @@
-#pragma once
 #ifndef FPS_LIMITER_HPP
 #define FPS_LIMITER_HPP
 
@@ -7,7 +6,7 @@
 class FPSLimiter
 {
 public:
-    void Limit(int FrameDelay, int FrameTime);    
+    void Limit(int FrameDelay, int FrameTime);
 };
 
 #endif

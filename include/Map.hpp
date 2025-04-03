@@ -3,6 +3,7 @@
 
 #pragma once
 #include "Game.hpp"
+#include "Player.hpp"
 
 struct Tile
 {
@@ -10,7 +11,7 @@ struct Tile
     int id = 0;
     int x = 0;
     int y = 0;
-    bool hasEnemy = false;
+    // bool hasEnemy = false;
     SDL_Texture* tileTex;
 };
 
@@ -29,7 +30,7 @@ public:
     void LoadEntireMap();
     void RenderEntireMap();
     // void UpdateCamera(SDL_Rect &camera, int actualY, int windowHeight, float scrollSpd);
-    void ScrollMap();
+    bool ScrollMap();
     //
     static const int ROW = 12; // 12 x 9 dynamic array
     static const int COL = 9;  // static to use in initialization list

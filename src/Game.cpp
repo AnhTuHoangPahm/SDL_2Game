@@ -1,4 +1,9 @@
 #include "Game.hpp"
+#include "Map.hpp"
+#include "Player.hpp"
+#include "Enemy.hpp"
+#include "Spawner.hpp"
+
 //sdl-event
 SDL_Event event;
 // texture here
@@ -11,11 +16,13 @@ Game::Game()
 Game::~Game()
 {}
 
+
 EnemySpawner spawner;
 Player* player;
 Map* mapper;
 
 SDL_Renderer* Game::renderer;
+RandomGenerator Game::rgn;
 
 void Game::Init(const char* title, int x_pos, int y_pos, int width, int height, bool fullscreen) 
 {
@@ -53,8 +60,14 @@ void Game::buildMap()
 {
     mapper->Update();
     mapper->LoadEntireMap();
+
     spawner.AddSpawner(0, 0);
-    spawner.AddSpawner(11, 8); 
+    spawner.AddSpawner(0, 8);
+    spawner.AddSpawner(9, 0);
+    spawner.AddSpawner(9, 8); 
+    spawner.AddSpawner(5, 5);
+
+
     SDL_RenderClear(renderer);
     mapper->RenderEntireMap();
     SDL_RenderPresent(renderer);
@@ -76,8 +89,14 @@ void Game::handleEvents()
 void Game::update()
 {
     player->Update();
+    spawner.Update(Player::startingX, Player::startingY);
     mapper->Update(); 
-    mapper->ScrollMap();
+    // mapper->ScrollMap();
+
+    // if(mapper->ScrollMap()) 
+    // {
+    //     spawner.ScrollDown();
+    // }
 }
 
 void Game::render()
@@ -87,6 +106,7 @@ void Game::render()
 
     mapper->RenderEntireMap();
     player->Render();
+    spawner.Render();
     SDL_RenderPresent(renderer);
     
 }

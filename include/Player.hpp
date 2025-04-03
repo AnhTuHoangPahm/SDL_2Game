@@ -1,8 +1,9 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#pragma once
 #include "Game.hpp"
+#include "TextureManager.hpp"
+#include "GameObject.hpp"
 
 class Player : public GameObject 
 {

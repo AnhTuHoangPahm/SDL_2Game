@@ -1,5 +1,7 @@
 #include "Enemy.hpp"
 
+SDL_Texture* Enemy::enemyTex = TextureManager::LoadTexture("assets/Tile_01.png");
+
 Enemy::~Enemy()
 {}
 
@@ -24,21 +26,25 @@ void Enemy::RandomMovement()
         }
     }
 
+    if (validMoves.empty()) // allow going back if no more available move
+    {
+        validMoves.push_back((prevX / Map::tileSize == x / Map::tileSize && prevY / Map::tileSize == y / Map::tileSize) ? 0 : 1);
+    }
+
     // move randomly based on valid directions
     if (!validMoves.empty())
     {
-        int dir = validMoves[Game::rgn.getInt(0,30) % 4];
+        int dir = validMoves[Game::rgn.getInt(0, validMoves.size() - 1)];
+            std::cout << "Valid Moves: " << validMoves.size() << std::endl;
+            std::cout << "Random Move: " << dir << std::endl;
+            
         prevX = x;
         prevY = y;
-        x += dx[dir] * Map::tileSize;
-        y += dx[dir] * Map::tileSize;
+
+        x += dx[dir] * Map::tileSize; 
+        y += dy[dir] * Map::tileSize;
     }
     
-}
-
-void Enemy::Render()
-{
-    SDL_RenderCopy(Game::renderer, enemyTex, &enemySrc, &enemyDest);
 }
 
 bool Enemy::DetectPlayer(int playerX, int playerY) 
@@ -67,5 +73,16 @@ void Enemy::ChasePlayer(int playerX, int playerY)
     } else { // player move up or down
         y += (plGridY > gridY) ? Map::tileSize : - Map::tileSize;
     }
+}
+
+bool Enemy::Attack(int playerX, int playerY) {
+    Uint32 currentTime = SDL_GetTicks();
+    if (CollisionDetect::areAdjacent(x, y, playerX, playerY)) {
+        if (currentTime - lastAttackTime >= 1000) {
+            lastAttackTime = currentTime;
+            return true;
+        }
+    }
+    return false;
 }
 
