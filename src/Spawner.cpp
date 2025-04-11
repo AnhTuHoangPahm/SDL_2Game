@@ -34,7 +34,7 @@ bool EnemySpawner::isOccupied(int x, int y) const {
 void EnemySpawner::Update(int& playerX, int& playerY)
 {
     Uint32 currentTime = SDL_GetTicks();
-    if (currentTime - lastSpawnTime >= 1750) // spawn inteval
+    if (currentTime - lastSpawnTime >= 1200) // spawn inteval
     {
         Spawn();
         lastSpawnTime = currentTime;

@@ -2,12 +2,12 @@
 #include "Map.hpp"
 #include "Spawner.hpp"
 
-SDL_Texture* Enemy::enemyTex = TextureManager::LoadTexture("assets/Tile_01.png");
+SDL_Texture* Enemy::enemyTex = nullptr;
 
 Enemy::Enemy(int startX, int startY)
     : x(startX * Map::tileSize ), y(startY * Map::tileSize), prevX(x), prevY(y), lastMoveTime(SDL_GetTicks())
 {
-    enemyTex = TextureManager::LoadTexture("assets/Tile_01.png");
+    enemyTex = TextureManager::LoadTexture("assets/Knight.png");
 }
 
 Enemy::~Enemy()
