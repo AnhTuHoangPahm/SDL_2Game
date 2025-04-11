@@ -8,15 +8,13 @@
 #include "Map.hpp"
 #include "Collision.hpp"
 
+class Map;
+class EnemySpawner;
+
 class Enemy : public GameObject
 {
 public:
-    Enemy(int startX, int startY)
-        : x(startX * Map::tileSize ), y(startY * Map::tileSize), prevX(x), prevY(y), lastMoveTime(SDL_GetTicks()), lastAttackTime(0) 
-    {
-        enemyTex = TextureManager::LoadTexture("assets/Tile_01.png");
-    }
-
+    Enemy(int startX, int startY);
     ~Enemy() override;
     // void Update(int playerX, int PlayerY); don't need that, see Spawner::Update()
     void RandomMovement();
@@ -30,7 +28,11 @@ public:
     int x, y;
     int prevX, prevY;
     Uint32 lastMoveTime;
-    Uint32 lastAttackTime;
+    // Uint32 lastAttackTime;
+    Uint32 attackStartTime = 0;
+
+    bool attackOnCD = false;
+    
 
 };
 

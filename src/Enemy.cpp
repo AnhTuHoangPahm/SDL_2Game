@@ -1,6 +1,14 @@
 #include "Enemy.hpp"
+#include "Map.hpp"
+#include "Spawner.hpp"
 
 SDL_Texture* Enemy::enemyTex = TextureManager::LoadTexture("assets/Tile_01.png");
+
+Enemy::Enemy(int startX, int startY)
+    : x(startX * Map::tileSize ), y(startY * Map::tileSize), prevX(x), prevY(y), lastMoveTime(SDL_GetTicks())
+{
+    enemyTex = TextureManager::LoadTexture("assets/Tile_01.png");
+}
 
 Enemy::~Enemy()
 {}
@@ -19,7 +27,9 @@ void Enemy::RandomMovement()
 
         if (newX >= 0 && newX < Map::COL && newY>0 && newY < Map::ROW) // inside the map
         {
-            if (!(newX == prevX / Map::tileSize && newY == prevY / Map::tileSize)) // not going back to prev tile
+            int pX = newX * Map::tileSize;
+            int pY = newY * Map::tileSize;
+            if (!(pX == prevX && pY == prevY) && !(EnemySpawner::spawner->isOccupied(pX, pY))) // not going back to prev tile and step on others
             {
                 validMoves.push_back(i);
             }
@@ -49,12 +59,14 @@ void Enemy::RandomMovement()
 
 bool Enemy::DetectPlayer(int playerX, int playerY) 
 {
-    int gridX = x / Map::tileSize;
-    int gridY = y / Map::tileSize;
-    int plGridX = playerX / Map::tileSize;
-    int plGridY = playerY / Map::tileSize;
-    // detect range: 1 tile
-    return std::abs(gridX - plGridX) <=1 && std::abs(gridY - plGridY) <=1; 
+    // int gridX = x / Map::tileSize;
+    // int gridY = y / Map::tileSize;
+    // int plGridX = playerX / Map::tileSize;
+    // int plGridY = playerY / Map::tileSize;
+    // // detect range: 1 tile
+    // return std::abs(gridX - plGridX) <=1 && std::abs(gridY - plGridY) <=1;
+
+    return CollisionDetect::areAround(x, y, playerX, playerY); 
 }
 
 void Enemy::ChasePlayer(int playerX, int playerY) 
@@ -67,22 +79,41 @@ void Enemy::ChasePlayer(int playerX, int playerY)
     prevX = x;
     prevY = y;
 
+    int nextX = x;
+    int nextY = y;
+
     if (std::abs(plGridX - gridX) > std::abs(plGridY - gridY)) // dx > dy, as when player moves right or left 
     {
-        x += (plGridX > gridX) ? Map::tileSize : - Map::tileSize;
+        nextX += (plGridX > gridX) ? Map::tileSize : -Map::tileSize;
     } else { // player move up or down
-        y += (plGridY > gridY) ? Map::tileSize : - Map::tileSize;
+        nextY += (plGridY > gridY) ? Map::tileSize : -Map::tileSize;
+    }
+
+    if (!EnemySpawner::spawner->isOccupied(nextX, nextY)) 
+    {
+        x = nextX;
+        y = nextY;
     }
 }
 
-bool Enemy::Attack(int playerX, int playerY) {
+bool Enemy::Attack(int playerX, int playerY) 
+{
     Uint32 currentTime = SDL_GetTicks();
-    if (CollisionDetect::areAdjacent(x, y, playerX, playerY)) {
-        if (currentTime - lastAttackTime >= 1000) {
-            lastAttackTime = currentTime;
-            return true;
+
+    if (attackOnCD) {
+        if (currentTime - attackStartTime >= 700) {
+            if (CollisionDetect::areAdjacent(x, y, playerX, playerY)) 
+            {
+                attackOnCD = false;
+                return true;
+            } else {
+                attackOnCD = false; // cancel if player flee 
+            }
         }
+    } else if (CollisionDetect::areAdjacent(x, y, playerX, playerY)) {
+        attackOnCD = true;
+        attackStartTime = currentTime;
     }
+
     return false;
 }
-

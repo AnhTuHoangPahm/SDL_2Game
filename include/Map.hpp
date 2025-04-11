@@ -42,7 +42,7 @@ private:
     SDL_Texture* tmpTileTex;
     
 
-    // that 2D vector 
+    // 2D vector 
     std::deque<std::vector<Tile>> Tiles; 
 
     SDL_Rect tileSrc, tileDest;

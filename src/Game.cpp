@@ -6,8 +6,6 @@
 
 //sdl-event
 SDL_Event event;
-// texture here
-// SDL_Texture *playerTex, *bgTex, *Skadi;
 // Rect here
 SDL_Rect srcRect, destRect;
 
@@ -16,8 +14,6 @@ Game::Game()
 Game::~Game()
 {}
 
-
-EnemySpawner spawner;
 Player* player;
 Map* mapper;
 
@@ -26,7 +22,7 @@ RandomGenerator Game::rgn;
 
 void Game::Init(const char* title, int x_pos, int y_pos, int width, int height, bool fullscreen) 
 {
-    // set Uint32 flag -> fullscreen?
+    // set Uint32 flag -> fullscreen? -> SDL_WINDOW_FULLSCREEN.
     int flag = 0;
     if (fullscreen)
     {
@@ -57,15 +53,19 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width, int height, 
 }
 
 void Game::buildMap()
-{
+{   
     mapper->Update();
     mapper->LoadEntireMap();
 
-    spawner.AddSpawner(0, 0);
-    spawner.AddSpawner(0, 8);
-    spawner.AddSpawner(9, 0);
-    spawner.AddSpawner(9, 8); 
-    spawner.AddSpawner(5, 5);
+    if (EnemySpawner::spawner == nullptr) {
+        EnemySpawner::spawner = new EnemySpawner();
+    }
+
+    EnemySpawner::spawner->AddSpawner(0, 0);
+    EnemySpawner::spawner->AddSpawner(0, 8);
+    EnemySpawner::spawner->AddSpawner(9, 0);
+    EnemySpawner::spawner->AddSpawner(9, 8); 
+    EnemySpawner::spawner->AddSpawner(5, 5);
 
 
     SDL_RenderClear(renderer);
@@ -89,7 +89,7 @@ void Game::handleEvents()
 void Game::update()
 {
     player->Update();
-    spawner.Update(Player::startingX, Player::startingY);
+    EnemySpawner::spawner->Update(Player::startingX, Player::startingY);
     mapper->Update(); 
     // mapper->ScrollMap();
 
@@ -106,7 +106,8 @@ void Game::render()
 
     mapper->RenderEntireMap();
     player->Render();
-    spawner.Render();
+    EnemySpawner::spawner->Render();
+    
     SDL_RenderPresent(renderer);
     
 }
@@ -119,4 +120,3 @@ void Game::clean()
     IMG_Quit();
     std::cout << "Game terminated" << std::endl;
 }
-

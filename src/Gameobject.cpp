@@ -1,6 +1,5 @@
 #include "GameObject.hpp"
-#include "TextureManager.hpp" // load objTex
-
+#include "TextureManager.hpp"
 
 GameObject::GameObject(const char* TextureSheetDir)
 {
@@ -12,7 +11,7 @@ GameObject::~GameObject()
 
 void GameObject::Update()
 {
-        // x  y  h   w
+    // {x  y  h  w}
     srcRect = {0, 0, 64, 64};
     destRect = {0, 0, 64, 64};
 }
@@ -21,5 +20,3 @@ void GameObject::Render()
 {
     SDL_RenderCopy(Game::renderer, Tex, &srcRect, &destRect);
 }
-
-

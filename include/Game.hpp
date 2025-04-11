@@ -15,14 +15,7 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "FPSLimiter.hpp"
-// #include "TextureManager.hpp"
-// #include "GameObject.hpp"
 #include "Random.hpp"
-// #include "Map.hpp"
-// #include "Enemy.hpp"
-// #include "Spawner.hpp"
-// #include "Player.hpp"
-
 
 class Game {
 public:

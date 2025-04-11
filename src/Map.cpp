@@ -1,8 +1,5 @@
 #include "Map.hpp"
 
-// Map::Map(const char* TileSheetDir)
-// {}
-
 Map::~Map()
 {}
 
@@ -25,11 +22,6 @@ void Map::LoadEntireMap()
             tile.id = (row % 2);
             tile.tileTex = tmpTileTex;
 
-            // if (Game::rgn.getInt(0, 100) % 100 < 7) 
-            // {
-            //     tile.hasEnemy = true;
-            // }
-                
             Tiles[row][col] = tile;
         }
     }
@@ -45,10 +37,6 @@ void Map::RenderEntireMap()
             tileSrc.x = tile.id * tileSize;
             SDL_RenderCopy(Game::renderer, tmpTileTex, &tileSrc, &tileDest);
 
-            // if (tile.hasEnemy)
-            // {
-            //     SDL_RenderCopy(Game::renderer, Enemy::enemyTex, &tileSrc, &tileDest);
-            // }
         }
     }
 }
@@ -97,4 +85,3 @@ void Map::RenderEntireMap()
 //         return false;
 //     }
 // }
-
