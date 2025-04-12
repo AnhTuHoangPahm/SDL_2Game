@@ -59,13 +59,6 @@ void Enemy::RandomMovement()
 
 bool Enemy::DetectPlayer(int playerX, int playerY) 
 {
-    // int gridX = x / Map::tileSize;
-    // int gridY = y / Map::tileSize;
-    // int plGridX = playerX / Map::tileSize;
-    // int plGridY = playerY / Map::tileSize;
-    // // detect range: 1 tile
-    // return std::abs(gridX - plGridX) <=1 && std::abs(gridY - plGridY) <=1;
-
     return CollisionDetect::areAround(x, y, playerX, playerY); 
 }
 

@@ -9,13 +9,17 @@
 const int FPS = 60;
 const int FrameDelay = 1000 / FPS;
 
-Game* game = nullptr;
 FPSLimiter Limiter;
 
 int main(int argc, char* argv[]) {
+    int a = TTF_Init();
+    if(a==-1) std::cerr << TTF_GetError() << "\n";
+    else std::cerr << "TTF inited\n";
+    Game* game = nullptr;
+
     game = new Game();
 
-    game->Init("Alpha", SDL_WINDOWPOS_CENTERED, 30, Game::width, Game::height, false);
+    game->Init("A Window", SDL_WINDOWPOS_CENTERED, 30, Game::width, Game::height, false);
 
     game->buildMap();
     

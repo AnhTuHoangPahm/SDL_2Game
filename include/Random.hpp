@@ -4,8 +4,7 @@
 
 class RandomGenerator {
 public:
-                         // ?  v
-    RandomGenerator() : gen(rd( )) {} // result_type operator ()
+    RandomGenerator() : gen(rd()) {}
     ~RandomGenerator();
     // radomize integer in [a, b]
     int getInt(int a, int b);

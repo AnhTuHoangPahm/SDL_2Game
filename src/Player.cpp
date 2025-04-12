@@ -126,7 +126,7 @@ void Player::AttackEnemy(std::vector<Enemy>& enemies, int playerX, int playerY, 
     int targetX = playerX + dirX * 64;
     int targetY = playerY + dirY * 64;
 
-    for (auto i = enemies.begin(); i != enemies.end(); i++) 
+    for (auto i = enemies.begin(); i != enemies.end(); i++)
     {
         if (i->x == targetX && i->y == targetY) 
         {

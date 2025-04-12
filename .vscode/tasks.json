@@ -21,14 +21,17 @@
                 "${workspaceFolder}\\src\\Enemy.cpp",
                 "${workspaceFolder}\\src\\Spawner.cpp",
                 "${workspaceFolder}\\src\\Player.cpp",
+                "${workspaceFolder}\\src\\Collision.cpp",
                 "${workspaceFolder}\\src\\Timer.cpp",
+                "${workspaceFolder}\\src\\TextTimer.cpp",
                 "${file}",
                 "-o",
                 "${workspaceFolder}\\build\\${fileBasenameNoExtension}.exe",
                 "-lmingw32",
                 "-lSDL2main",
                 "-lSDL2",
-                "-lSDL2_image"
+                "-lSDL2_image",
+                "-lSDL2_ttf"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"

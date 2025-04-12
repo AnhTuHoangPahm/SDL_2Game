@@ -19,9 +19,9 @@ public:
     void Render();
     bool isOccupied(int x, int y) const;
     void Update(int& playerX, int& playerY); 
-    void ScrollDown(); // no usage
+    // void ScrollDown(); // no usage
     
-    std::vector<std::pair<int, int>> spawnerPos; // pair as pos = (x, y)
+    std::vector<std::pair<int, int>> spawnerPos;
     std::vector<Enemy> enemies; // store each enemy
     Uint32 lastSpawnTime;
 

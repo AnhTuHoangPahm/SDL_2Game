@@ -7,7 +7,6 @@
 
 struct Tile
 {
-    
     int id = 0;
     int x = 0;
     int y = 0;
@@ -30,7 +29,7 @@ public:
     void LoadEntireMap();
     void RenderEntireMap();
     // void UpdateCamera(SDL_Rect &camera, int actualY, int windowHeight, float scrollSpd);
-    bool ScrollMap();
+    bool ScrollMap(); // no use
     //
     static const int ROW = 12; // 12 x 9 dynamic array
     static const int COL = 9;  // static to use in initialization list
@@ -41,7 +40,6 @@ private:
     // Tile tex to be cloned 
     SDL_Texture* tmpTileTex;
     
-
     // 2D vector 
     std::deque<std::vector<Tile>> Tiles; 
 

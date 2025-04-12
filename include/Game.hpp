@@ -16,6 +16,7 @@
 
 #include "FPSLimiter.hpp"
 #include "Random.hpp"
+#include "TextTimer.hpp"
 
 class Game {
 public:

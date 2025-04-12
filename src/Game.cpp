@@ -3,6 +3,8 @@
 #include "Player.hpp"
 #include "Enemy.hpp"
 #include "Spawner.hpp"
+#include "Timer.hpp"
+#include "TextTimer.hpp"
 
 //sdl-event
 SDL_Event event;
@@ -38,7 +40,6 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width, int height, 
         // check renderer's status
         if(renderer)
         {
-            // give renderer some work
             //SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         }
         
@@ -50,7 +51,11 @@ void Game::Init(const char* title, int x_pos, int y_pos, int width, int height, 
 
     //bgTex = TextureManager::LoadTexture("assets/VastSands.png", renderer);
 
+    TTF_Init();
 }
+
+SDL_Color red = {255, 0, 0, 255};
+TextTimer* timer = new TextTimer("ttfont/DePixelHalbfett.ttf", 22, red, 200, 200, 150000);
 
 void Game::buildMap()
 {   
@@ -66,7 +71,6 @@ void Game::buildMap()
     EnemySpawner::spawner->AddSpawner(9, 0);
     EnemySpawner::spawner->AddSpawner(9, 8); 
     EnemySpawner::spawner->AddSpawner(5, 5);
-
 
     SDL_RenderClear(renderer);
     mapper->RenderEntireMap();
@@ -88,12 +92,13 @@ void Game::handleEvents()
 
 void Game::update()
 {
+    timer->Update();
     player->Update();
     EnemySpawner::spawner->Update(Player::startingX, Player::startingY);
     mapper->Update(); 
     // mapper->ScrollMap();
 
-    // if(mapper->ScrollMap()) 
+    // if(mapper->ScrollMap())
     // {
     //     spawner.ScrollDown();
     // }
@@ -107,7 +112,8 @@ void Game::render()
     mapper->RenderEntireMap();
     player->Render();
     EnemySpawner::spawner->Render();
-    
+
+    timer->Render(); 
     SDL_RenderPresent(renderer);
     
 }
@@ -118,5 +124,6 @@ void Game::clean()
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
     IMG_Quit();
+    TTF_Quit();
     std::cout << "Game terminated" << std::endl;
 }

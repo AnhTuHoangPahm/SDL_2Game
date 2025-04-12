@@ -11,7 +11,6 @@ GameObject::~GameObject()
 
 void GameObject::Update()
 {
-    // {x  y  h  w}
     srcRect = {0, 0, 64, 64};
     destRect = {0, 0, 64, 64};
 }

@@ -5,7 +5,7 @@
 
 class Timer {
 public:
-    Timer() : startTime(0), countdownTime(0), lastInterval(0), interval(1000) {}
+    Timer(Uint32 countdownTime) : startTime(0), countdownTime(0), lastInterval(0), interval(1000) {}
 
     // countdown at pre-defined time(ms)
     void StartCountdown(Uint32 timeMs);
@@ -21,7 +21,8 @@ public:
 
     // check if an interval is completed
     bool HasIntervalPassed();
-    
+    static Timer* clock;
+
 private:
     Uint32 startTime;       // start to countdown from this time (ms)
     Uint32 countdownTime;   // countdown time (ms)

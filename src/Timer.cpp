@@ -1,5 +1,7 @@
 #include "Timer.hpp"
 
+Timer* Timer::clock = nullptr;
+
 void Timer::StartCountdown(Uint32 timeMs) {
     countdownTime = timeMs;
     startTime = SDL_GetTicks();

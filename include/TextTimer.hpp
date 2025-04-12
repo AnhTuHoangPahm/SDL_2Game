@@ -7,43 +7,16 @@
 class TextTimer
 {
 public:
-    TextTimer(SDL_Renderer* timeRender,const char* fontPath, TTF_Font* font, int fontSize, SDL_Color color, int x, int y)
-        : textRender(timeRender), color(color), timerTex(nullptr)
-    {
-        font = TTF_OpenFont(fontPath, fontSize);
-        if (!font) {
-            SDL_Log("Failed to load font: %s", TTF_GetError());
-        }
-
-        timerRect.x = x;
-        timerRect.y = y;
-        timerRect.w = 100;
-        timerRect.h = 50;
-    }
-
+    TextTimer(const std::string& fontPath, int fontSize, SDL_Color color, int x, int y, Uint32 duration);
     ~TextTimer();
-    // Cập nhật văn bản từ thời gian của Timer
+    // Update time from Timer
     void Update();
+    Uint32 GetRemainingTime();
+    // Render time text
+    void RenderText(const std::string& text) ;
 
-    // Render văn bản
-    void RenderText(const char* text) {
-        if (timerTex) SDL_DestroyTexture(timerTex);
-
-        SDL_Surface* surface = TTF_RenderText_Solid(font, text, color);
-        if (!surface) return;
-
-        timerTex = SDL_CreateTextureFromSurface(textRender, surface);
-        timerRect.w = surface->w;
-        timerRect.h = surface->h;
-        SDL_FreeSurface(surface);
-    }
-
-    // Hiển thị lên màn hình
-    void Render() {
-        if (timerTex) {
-            SDL_RenderCopy(textRender, timerTex, NULL, &timerRect);
-        }
-    }
+    // appear on screen
+    void Render();
 
 private:
     TTF_Font* font;
@@ -51,6 +24,8 @@ private:
     SDL_Texture* timerTex;
     SDL_Color color;
     SDL_Rect timerRect;
+    Uint32 duration;
+    Uint32 startTime;
 };
 
 #endif
